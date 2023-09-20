@@ -1,0 +1,197 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Flight Seat Picker</title>
+
+    <script src="/sdk/app-page-sdk.js"></script>
+    <script data-form-example>
+      window.addEventListener("load", () => {
+        const form = document.querySelector("form");
+        form.onsubmit = (e) => {
+          e.preventDefault();
+          e.stopPropagation();
+          const formData = new FormData(form);
+          const values = [...formData.entries()].reduce((obj, [key, value]) => {
+            obj[key] = value;
+            return obj;
+          }, {});
+
+          SDK.submit(values);
+        };
+      });
+    </script>
+
+    <style>
+      body {
+        background-color: white;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        height: 100vh;
+      }
+
+      .seat-container {
+        display: flex;
+        gap: 20px; /* Gap between the two columns */
+      }
+
+      .column {
+        display: flex;
+        flex-direction: column;
+        gap: 10px; /* Gap between rows */
+      }
+
+      .row {
+        display: flex;
+        gap: 10px; /* Gap between seats in the same row */
+      }
+
+      .seat {
+        width: 50px;
+        height: 50px;
+        background-color: #171d29;
+        color: white;
+        font-family: "Helvetica", "Arial", sans-serif;
+        font-size: 12px;
+        cursor: pointer;
+        border-radius: 5px;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+      }
+
+      .seat.selected {
+        background-color: #007aff;
+      }
+
+      .select-seats-button {
+        margin-top: 25px;
+        padding: 8px 25px;
+        border-radius: 5px;
+        border: 1px solid black;
+        background: white;
+        cursor: pointer;
+        transition: .25s ease;
+      }
+      
+      .select-seats-button:hover {
+        background: #171d29;
+        color: white;
+      }
+
+      .root {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="root">
+      <div class="seat-container">
+        <div class="column">
+          <!-- First Column of Seats -->
+          <div class="row">
+            <div class="seat" data-seat="1A">1A</div>
+            <div class="seat" data-seat="1B">1B</div>
+          </div>
+          <div class="row">
+            <div class="seat" data-seat="2A">2A</div>
+            <div class="seat" data-seat="2B">2B</div>
+          </div>
+          <div class="row">
+            <div class="seat" data-seat="3A">3A</div>
+            <div class="seat" data-seat="3B">3B</div>
+          </div>
+          <div class="row">
+            <div class="seat" data-seat="4A">4A</div>
+            <div class="seat" data-seat="4B">4B</div>
+          </div>
+          <div class="row">
+            <div class="seat" data-seat="5A">5A</div>
+            <div class="seat" data-seat="5B">5B</div>
+          </div>
+          <div class="row">
+            <div class="seat" data-seat="6A">6A</div>
+            <div class="seat" data-seat="6B">6B</div>
+          </div>
+          <div class="row">
+            <div class="seat" data-seat="7A">7A</div>
+            <div class="seat" data-seat="7B">7B</div>
+          </div>
+          <div class="row">
+            <div class="seat" data-seat="8A">8A</div>
+            <div class="seat" data-seat="8B">8B</div>
+          </div>
+          <!-- Repeat for 10 rows -->
+          <!-- ... -->
+        </div>
+        <div class="column">
+          <!-- Second Column of Seats -->
+          <div class="row">
+            <div class="seat" data-seat="1C">1C</div>
+            <div class="seat" data-seat="1D">1D</div>
+          </div>
+          <div class="row">
+            <div class="seat" data-seat="2C">2C</div>
+            <div class="seat" data-seat="2D">2D</div>
+          </div>
+          <div class="row">
+            <div class="seat" data-seat="3C">3C</div>
+            <div class="seat" data-seat="3D">3D</div>
+          </div>
+          <div class="row">
+            <div class="seat" data-seat="4C">4C</div>
+            <div class="seat" data-seat="4D">4D</div>
+          </div>
+          <div class="row">
+            <div class="seat" data-seat="5C">5C</div>
+            <div class="seat" data-seat="5D">5D</div>
+          </div>
+          <div class="row">
+            <div class="seat" data-seat="6C">6C</div>
+            <div class="seat" data-seat="6D">6D</div>
+          </div>
+          <div class="row">
+            <div class="seat" data-seat="7C">7C</div>
+            <div class="seat" data-seat="7D">7D</div>
+          </div>
+          <div class="row">
+            <div class="seat" data-seat="8C">8C</div>
+            <div class="seat" data-seat="8D">8D</div>
+          </div>
+          <!-- Repeat for 10 rows -->
+          <!-- ... -->
+        </div>
+      </div>
+
+      <button class="select-seats-button" id="select-seats-button">Select</div>
+    </div>
+    <script>
+
+      let selectedSeats = [];
+      document.addEventListener("DOMContentLoaded", function () {
+        let seats = document.querySelectorAll(".seat");
+
+        seats.forEach((seat) => {
+          seat.addEventListener("click", function () {
+            if (this.classList.contains("selected")) {
+              this.classList.remove("selected");
+              selectedSeats.pop(this.innerHTML);
+            } else {
+              this.classList.add("selected");
+              selectedSeats.push(this.innerHTML);
+            }
+          });
+        });
+      });
+
+      document.getElementById("select-seats-button").addEventListener("click", (event) => {
+          const data = { seats: selectedSeats }
+          SDK.submit(data);
+      });
+    </script>
+  </body>
+</html>
