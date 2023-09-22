@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Upload Picture</title>
+    <script src="/sdk/app-page-sdk.js"></script>
+    <style>
+      body {
+        background-color: #092c79;
+        margin: 0;
+        padding: 0;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        height: 100vh;
+        font-family: "Open Sans", sans-serif;
+        overflow: hidden;
+      }
+
+      .logo-container {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        margin-bottom: 20px;
+      }
+
+      img {
+        max-width: 50%;
+      }
+
+      .button-container {
+        text-align: center;
+      }
+
+      .upload-button {
+        background-color: #0069eb;
+        color: #fff;
+        font-size: 16px;
+        padding: 15px 30px;
+        border-radius: 30px;
+        border: none;
+        cursor: pointer;
+      }
+
+      .notification {
+        display: none;
+        color: #fff;
+        margin-top: 20px;
+        font-size: 18px;
+      }
+    </style>
+  </head>
+
+  <body>
+    <div class="button-container">
+      <button id="uploadButton" class="upload-button">Upload Picture</button>
+      <div id="notification" class="notification">
+        Succfessfully uploaded picture!
+      </div>
+    </div>
+
+    <input type="file" accept="image/*" id="fileInput" style="display: none;" />
+
+    <script>
+      const uploadButton = document.getElementById("uploadButton");
+      const fileInput = document.getElementById("fileInput");
+      const notification = document.getElementById("notification");
+
+      uploadButton.addEventListener("click", function () {
+        fileInput.click();
+      });
+
+      fileInput.addEventListener("change", function () {
+        const selectedFile = fileInput.files[0];
+
+        if (selectedFile) {
+          notification.style.display = "block";
+          uploadButton.style.display = "none";
+
+          const data = { picture: selectedFile };
+          SDK.submit(data);
+        }
+      });
+    </script>
+  </body>
+</html>
