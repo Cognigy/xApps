@@ -1,0 +1,55 @@
+{
+  "version": "1.0",
+  "xapps": [
+    {
+      "name": "credit-card",
+      "label": "Credit Card",
+      "version": "4.0.0",
+      "description": "This xApp lets the user enter credit card information",
+      "longDescription": "This xApp lets the user enter credit card information.",
+      "infoUrl": "https://github.com/Cognigy/xApps/tree/main/xapps/credit-card",
+      "tags": ["credit card", "banking", "payment", "finance"],
+      "pictureUrl": ""
+    },
+    {
+      "name": "flight-seat-picker",
+      "label": "Flight Seat Picker",
+      "version": "4.0.0",
+      "description": "This xApp displays an example seat map of an airplane",
+      "longDescription": "This xApp displays an example seat map of an airplane.",
+      "infoUrl": "https://github.com/Cognigy/xApps/tree/main/xapps/flight-seat-picker",
+      "tags": ["aviation", "travel", "airplane", "booking", "seat"],
+      "pictureUrl": "https://raw.githubusercontent.com/Cognigy/xApps/main/xapps/flight-seat-picker/docs/example.png"
+    },
+    {
+      "name": "geo-location",
+      "label": "Geo Location",
+      "version": "4.0.0",
+      "description": "This xApp shows a button that submits the geolocation of the user's device on click",
+      "longDescription": "This xApp shows a button that submits the geolocation of the user's device on click.",
+      "infoUrl": "https://github.com/Cognigy/xApps/tree/main/xapps/geo-location",
+      "tags": ["location", "geo"],
+      "pictureUrl": "https://raw.githubusercontent.com/Cognigy/xApps/main/xapps/geo-location/docs/example.png"
+    },
+    {
+      "name": "license-plate-form",
+      "label": "License Plate Form",
+      "version": "4.0.0",
+      "description": "This xApp displays an example form for German license Plates",
+      "longDescription": "This xApp displays an example form for German license Plates with a filtered dropdown for cities/municipalities and a regex check before.",
+      "infoUrl": "https://github.com/Cognigy/xApps/tree/main/xapps/license-plate-form",
+      "tags": ["vehicle", "license plate", "insurance"],
+      "pictureUrl": "https://raw.githubusercontent.com/Cognigy/xApps/main/xapps/license-plate-form/docs/example.png"
+    },
+    {
+      "name": "signature",
+      "label": "Signature",
+      "version": "4.0.0",
+      "description": "This xApp lets the user sign something",
+      "longDescription": "This xApp lets the user sign something.",
+      "infoUrl": "https://github.com/Cognigy/xApps/tree/main/xapps/signature",
+      "tags": ["signature"],
+      "pictureUrl": "https://raw.githubusercontent.com/Cognigy/xApps/main/xapps/signature/docs/example.png"
+    }
+  ]
+}
