@@ -1,10 +1,10 @@
 # Stripe Payment
 
-This xApp displays a Stripe Payment component that processes a valid payment behind the scenes without sharing sensitive information with Cognigy.AI. As soon as the payment was successfull, Cognigy.AI receives the 
+This xApp displays a Stripe Payment component that processes a valid payment behind the scenes without sharing sensitive information with Cognigy.AI. As soon as the payment was successfull, Cognigy.AI receives the payment intent object.
 
 **Requirements:**
 
-One must have a Stripe account with a valid `published_secret_key`. More information about this can be found here:
+One must have a Stripe account with a valid public key. More information about this can be found here:
 - [Stripe API Authentication](https://docs.stripe.com/api/authentication)
 
 Moreover, the [Stripe Extension](https://www.cognigy.com/platform/cognigy-marketplace#/extension/stripe) must be installed in order to create a Payment Intent that is used within the xApp. Hence, the xApp uses the `amount`, `currency` and `client_secret` of the current user's payment intent in order to provide available payment options.
@@ -14,7 +14,7 @@ Moreover, the [Stripe Extension](https://www.cognigy.com/platform/cognigy-market
 <img src="./docs/example.png" width="200">
 
 
-The user can see the currently available payment options based on their payment intent. Every payment field, such as the credit card details, are populated by Stripe automatically and independent from Cognigy.AI. By clicking on the "PAY" button, the Stripe API is used to fulfill the payment:
+The user can see the currently available payment options based on their payment intent. Every payment field, such as the credit card details, are populated by Stripe automatically and independently from Cognigy.AI. By clicking on the "PAY" button, the Stripe API is used to fulfill the payment:
 
 ```json
 {
