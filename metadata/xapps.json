@@ -50,6 +50,16 @@
       "infoUrl": "https://github.com/Cognigy/xApps/tree/main/xapps/signature",
       "tags": ["signature"],
       "pictureUrl": "https://raw.githubusercontent.com/Cognigy/xApps/main/xapps/signature/docs/example.png"
+    },
+    {
+      "name": "google-maps-location",
+      "label": "Google Maps Location",
+      "version": "4.0.0",
+      "description": "This xApp shares the current google maps location of a user",
+      "longDescription": "This xApp shares the current google maps location of a user.",
+      "infoUrl": "https://github.com/Cognigy/xApps/tree/main/xapps/google-maps-location",
+      "tags": ["google", "maps"],
+      "pictureUrl": "https://raw.githubusercontent.com/Cognigy/xApps/main/xapps/google-maps-location/docs/example.png"
     }
   ]
 }
