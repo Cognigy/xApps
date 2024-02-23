@@ -60,6 +60,16 @@
       "infoUrl": "https://github.com/Cognigy/xApps/tree/main/xapps/google-maps-location",
       "tags": ["google", "maps"],
       "pictureUrl": "https://raw.githubusercontent.com/Cognigy/xApps/main/xapps/google-maps-location/docs/example.png"
+    },
+    {
+      "name": "stripe-payment",
+      "label": "Stripe Payment",
+      "version": "4.0.0",
+      "description": "This xApp displays a Stripe Payment component",
+      "longDescription": "This xApp displays a Stripe Payment component that processes a valid payment behind the scenes without sharing sensitive information with Cognigy.AI. As soon as the payment was successfull, Cognigy.AI receives the payment intent object.",
+      "infoUrl": "https://github.com/Cognigy/xApps/tree/main/xapps/stripe-payment",
+      "tags": ["stripe", "payment"],
+      "pictureUrl": "https://raw.githubusercontent.com/Cognigy/xApps/main/xapps/stripe-payment/docs/example.png"
     }
   ]
 }
