@@ -5,44 +5,14 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Flight Seat Picker</title>
 
-    <script src="/sdk/app-page-sdk.js"></script>
-    <script data-form-example>
-      window.addEventListener("load", () => {
-        const form = document.querySelector("form");
-        form.onsubmit = (e) => {
-          e.preventDefault();
-          e.stopPropagation();
-          const formData = new FormData(form);
-          const values = [...formData.entries()].reduce((obj, [key, value]) => {
-            obj[key] = value;
-            return obj;
-          }, {});
+    <link
+      rel="stylesheet"
+      href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css"
+    />
 
-          SDK.submit(values);
-        };
-      });
-    </script>
+    <script src="/sdk/app-page-sdk.js"></script>
 
     <style>
-      body {
-        background-color: white;
-        display: flex;
-        justify-content: center;
-        align-items: center;
-        height: 100vh;
-      }
-
-      .seat-container {
-        display: flex;
-        gap: 20px; /* Gap between the two columns */
-      }
-
-      .column {
-        display: flex;
-        flex-direction: column;
-        gap: 10px; /* Gap between rows */
-      }
-
       .row {
         display: flex;
         gap: 10px; /* Gap between seats in the same row */
@@ -63,7 +33,7 @@
       }
 
       .seat.selected {
-        background-color: #007aff;
+        background-color: rgb(22 163 74);
       }
 
       .select-seats-button {
@@ -73,9 +43,9 @@
         border: 1px solid black;
         background: white;
         cursor: pointer;
-        transition: .25s ease;
+        transition: 0.25s ease;
       }
-      
+
       .select-seats-button:hover {
         background: #171d29;
         color: white;
@@ -87,24 +57,17 @@
         border: 1px solid black;
         background: #eefdec;
         cursor: pointer;
-        transition: .25s ease;
+        transition: 0.25s ease;
         font-family: "Helvetica", "Arial", sans-serif;
         font-size: 12px;
-      }
-
-      .root {
-        display: flex;
-        flex-direction: column;
-        align-items: center;
       }
     </style>
   </head>
 
   <body>
- 
-    <div class="root">
-        <div class="seat-container" margin-top=0px>
-        <div class="column">
+    <div class="flex h-screen flex-col">
+      <div class="mx-6 my-6 flex flex-1 items-center justify-center gap-4">
+        <div class="flex flex-col gap-4">
           <!-- Reihe 1, linke Spalten A, B, C -->
           <div class="row">
             <div class="seat" data-seat="1A">1A</div>
@@ -147,25 +110,24 @@
             <div class="seat" data-seat="7B">7B</div>
             <div class="seat" data-seat="7C">7C</div>
           </div>
-                    <!-- Reihe 8, linke Spalten A, B, C -->
+          <!-- Reihe 8, linke Spalten A, B, C -->
           <div class="row">
-              <div class="seat" data-seat="8A">8A</div>
-              <div class="seat" data-seat="8B">8B</div>
-              <div class="seat" data-seat="8C">8C</div>
+            <div class="seat" data-seat="8A">8A</div>
+            <div class="seat" data-seat="8B">8B</div>
+            <div class="seat" data-seat="8C">8C</div>
           </div>
           <!-- Reihe 9, linke Spalten A, B, C -->
           <div class="row">
-              <div class="seat" data-seat="9A">9A</div>
-              <div class="seat" data-seat="9B">9B</div>
-              <div class="seat" data-seat="9C">9C</div>
+            <div class="seat" data-seat="9A">9A</div>
+            <div class="seat" data-seat="9B">9B</div>
+            <div class="seat" data-seat="9C">9C</div>
           </div>
-
         </div>
-        <div class="column">
+        <div class="flex flex-col gap-4">
           <!-- Gang -->
           <div class="aisle-gap"></div>
         </div>
-        <div class="column">
+        <div class="flex flex-col gap-4">
           <!-- Reihe 1, rechte Spalten D, E, F -->
           <div class="row">
             <div class="seat" data-seat="1D">1D</div>
@@ -210,26 +172,34 @@
           </div>
           <!-- Reihe 8, rechte Spalten D, E, F -->
           <div class="row">
-              <div class="seat" data-seat="8D">8D</div>
-              <div class="seat" data-seat="8E">8E</div>
-              <div class="seat" data-seat="8F">8F</div>
+            <div class="seat" data-seat="8D">8D</div>
+            <div class="seat" data-seat="8E">8E</div>
+            <div class="seat" data-seat="8F">8F</div>
           </div>
           <div class="row">
-              <div class="seat" data-seat="9D">9D</div>
-              <div class="seat" data-seat="9E">9E</div>
-              <div class="seat" data-seat="9F">9F</div>
+            <div class="seat" data-seat="9D">9D</div>
+            <div class="seat" data-seat="9E">9E</div>
+            <div class="seat" data-seat="9F">9F</div>
           </div>
-
-
         </div>
-
-
+      </div>
+      <div class="mx-6 my-6">
+        <span class="ml-2 text-gray-600">Seats</span>
+        <br />
+        <span id="selected-seats" class="ml-2 font-medium"></span>
+        <div class="mt-6 flex items-center justify-center gap-x-6">
+          <button
+            type="button"
+            id="postbackButton"
+            class="w-full rounded-md bg-green-600 py-2 text-sm font-semibold text-white shadow-sm hover:bg-green-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-green-600"
+          >
+            SELECT
+          </button>
+        </div>
+      </div>
     </div>
-      <button class="select-seats-button" id="select-seats-button">Select</button>
-    </div>
-    
+
     <script>
-
       let selectedSeats = [];
       document.addEventListener("DOMContentLoaded", function () {
         let seats = document.querySelectorAll(".seat");
@@ -246,24 +216,17 @@
               this.classList.add("selected");
               selectedSeats.push(this.innerHTML);
             }
+
+            document.getElementById("selected-seats").innerHTML = selectedSeats;
           });
         });
       });
-      document.getElementById("select-seats-button").addEventListener("click", (event) => {
-        const data = { seats: selectedSeats }
-       
-
-        // Add success message
-        const successMessage = document.createElement("p");
-        successMessage.className = "success-message";
-        successMessage.textContent = "You have successfully selected " + selectedSeats.join(", ")+".";
-        document.querySelector(".root").appendChild(successMessage);
-
-        // Hide select button
-        event.target.style.display = "none";
-        SDK.submit(data);
-      });
-
+      document
+        .getElementById("postbackButton")
+        .addEventListener("click", (event) => {
+          const data = { seats: selectedSeats };
+          SDK.submit(data);
+        });
     </script>
   </body>
 </html>
