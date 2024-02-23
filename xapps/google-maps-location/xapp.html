@@ -1,0 +1,145 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <!-- 
+			loads the xApp Page SDK, provided by Cognigy,
+			exposed as a global variable called "SDK".
+	-->
+    <script src="/sdk/app-page-sdk.js"></script>
+    <script data-form-example>
+      window.addEventListener("load", () => {
+        const form = document.querySelector("form");
+        form.onsubmit = (e) => {
+          e.preventDefault();
+          e.stopPropagation();
+          const formData = new FormData(form);
+          const values = [...formData.entries()].reduce((obj, [key, value]) => {
+            obj[key] = value;
+            return obj;
+          }, {});
+
+          SDK.submit(values);
+        };
+      });
+    </script>
+
+    <link
+      rel="stylesheet"
+      href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css"
+    />
+  </head>
+
+  <body>
+    <div class="flex h-screen flex-col">
+      <div id="map" class="flex-1"></div>
+      <div class="mx-6 my-6">
+        <span class="ml-2 text-gray-600">Your Location</span>
+        <br />
+        <span id="location" class="ml-2 font-medium">...</span>
+        <div class="mt-6 flex items-center justify-center gap-x-6">
+          <button
+            disabled
+            type="button"
+            id="postbackButton"
+            class="w-full cursor-not-allowed rounded-md bg-green-600 py-2 text-sm font-semibold text-white opacity-50 shadow-sm hover:bg-green-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-green-600"
+          >
+            SHARE
+          </button>
+        </div>
+      </div>
+    </div>
+
+    <script>
+      // Google Geolocation API Key
+      const GEO_LOCATION_API_KEY = "";
+
+      let position = undefined;
+
+      function getLocation(lat, lng, callback) {
+        var url =
+          "https://maps.googleapis.com/maps/api/geocode/json?latlng=" +
+          lat +
+          "," +
+          lng +
+          "&key=" +
+          GEO_LOCATION_API_KEY;
+
+        var xhr = new XMLHttpRequest();
+        xhr.open("GET", url, true);
+
+        xhr.onreadystatechange = function () {
+          if (xhr.readyState === XMLHttpRequest.DONE) {
+            if (xhr.status === 200) {
+              var response = JSON.parse(xhr.responseText);
+              let location = response?.results[0]?.formatted_address;
+              callback(null, location);
+            } else {
+              callback(xhr.status, null);
+            }
+          }
+        };
+        xhr.send();
+      }
+
+      // Extract the location (longitude, latitude) on success
+      function success(position) {
+        const latitude = position.coords.latitude;
+        const longitude = position.coords.longitude;
+
+        position = {
+          lat: latitude,
+          lng: longitude,
+        };
+
+        let location = undefined;
+
+        const map = new google.maps.Map(document.getElementById("map"), {
+          zoom: 15,
+          center: position,
+        });
+
+        new google.maps.Marker({
+          position: position,
+          map,
+          title: "My location",
+        });
+
+        getLocation(latitude, longitude, (error, result) => {
+          if (error) {
+            alert("Request failed with status:", xhr.status);
+          } else {
+            document.getElementById("location").innerHTML = result;
+            location = result;
+          }
+        });
+
+        document
+          .getElementById("postbackButton")
+          .classList.remove("opacity-50");
+        document
+          .getElementById("postbackButton")
+          .classList.remove("cursor-not-allowed");
+        document.getElementById("postbackButton").disabled = false;
+        document
+          .getElementById("postbackButton")
+          .addEventListener("click", () => {
+            SDK.submit({ position, location });
+          });
+      }
+
+      // Handle potential errors
+      function error() {
+        alert("Unable to retrieve your location");
+      }
+
+      if (!navigator.geolocation) {
+        alert("Geolocation is not supported by your browser");
+      } else {
+        // Get the current location
+        navigator.geolocation.getCurrentPosition(success, error);
+      }
+    </script>
+
+    <script src="https://maps.googleapis.com/maps/api/js?key=GOOGLE_MAPS_JAVASCRIPT_API_KEY&callback=success"></script>
+  </body>
+</html>
