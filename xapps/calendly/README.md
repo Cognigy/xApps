@@ -1,4 +1,4 @@
-# Take Photo
+# Calendly
 
 This xApp lets the user schedule a meeting via Calendly. Therefore, an official Calendly account is required.
 
