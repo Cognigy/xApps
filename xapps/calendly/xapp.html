@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <script src="/sdk/app-page-sdk.js"></script>
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <link
+      rel="stylesheet"
+      href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css"
+    />
+  </head>
+
+  <body>
+    <div class="flex h-screen flex-col">
+      <div id="calendly" class="flex-1 flex">
+        <!-- Calendly inline widget begin -->
+        <div
+          class="w-full h-full calendly-inline-widget"
+          data-url="https://calendly.com/YOUR_ACCOUNT?hide_gdpr_banner=1"
+        ></div>
+        <script
+          type="text/javascript"
+          src="https://assets.calendly.com/assets/external/widget.js"
+          async
+        ></script>
+        <!-- Calendly inline widget end -->
+      </div>
+    </div>
+  </body>
+</html>
