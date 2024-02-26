@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <script src="/sdk/app-page-sdk.js"></script>
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <link
+      rel="stylesheet"
+      href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css"
+    />
+  </head>
+
+  <body>
+    <div class="flex h-screen flex-col">
+      <div id="camera" class="flex-1 items-start justify-center flex">
+        <video id="video" autoplay></video>
+        <canvas style="display: none" id="canvas"></canvas>
+      </div>
+      <div class="mx-6 my-6">
+        <div class="mt-6 flex items-center justify-center gap-x-6">
+          <button
+            type="button"
+            id="capture"
+            class="w-full rounded-md bg-green-600 py-2 text-sm font-semibold text-white shadow-sm hover:bg-green-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-green-600"
+          >
+            TAKE PHOTO
+          </button>
+        </div>
+      </div>
+    </div>
+
+    <script>
+      document.addEventListener("DOMContentLoaded", function () {
+        const video = document.getElementById("video");
+        const canvas = document.getElementById("canvas");
+        const captureButton = document.getElementById("capture");
+
+        // Access the device camera and stream to video element
+        navigator.mediaDevices
+          .getUserMedia({ video: true })
+          .then(function (stream) {
+            video.srcObject = stream;
+          })
+          .catch(function (error) {
+            console.error("Error accessing the camera.", error);
+          });
+
+        // Capture photo from video stream
+        captureButton.addEventListener("click", function () {
+          const context = canvas.getContext("2d");
+          // Ensure canvas has the same size as the video stream
+          canvas.width = video.videoWidth;
+          canvas.height = video.videoHeight;
+          // Draw the current frame from the video onto the canvas
+          context.drawImage(video, 0, 0, canvas.width, canvas.height);
+          // Convert the canvas content to a data URL representing a PNG
+          const data = canvas.toDataURL("image/png");
+          // Display the captured image (optional)
+          const image = new Image();
+          image.src = data;
+
+          SDK.submit({ image: data });
+        });
+      });
+    </script>
+  </body>
+</html>
