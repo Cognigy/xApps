@@ -3,7 +3,7 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Flight Seat Picker</title>
+    <title>Signature</title>
 
     <link
       rel="stylesheet"
@@ -13,6 +13,14 @@
     <script src="/sdk/app-page-sdk.js"></script>
 
     <style>
+      /* Logo section styling */
+      #logo {
+        height: 10vh;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+      }
+
       .signature-pad {
         position: relative;
         display: -webkit-box;
@@ -26,7 +34,7 @@
         width: 100%;
         height: 100%;
         max-width: 700px;
-        max-height: 460px;
+        max-height: 600px;
         border: 1px solid #e8e8e8;
         background-color: #fff;
         box-shadow: 0 1px 4px rgba(0, 0, 0, 0.27),
@@ -95,8 +103,12 @@
       }
     </style>
   </head>
-
   <body>
+    <!-- Logo section -->
+    <div id="logo">
+      <img src="https://emeapresalesstorage.blob.core.windows.net/xapp-images/logo_cognigy (597x79)@1xpng.png" style="width: 200px; height: auto;" alt="Logo" />
+    </div>
+
     <div class="flex h-screen flex-col">
       <div class="mx-6 my-6 flex flex-1 justify-center">
         <div id="signature-pad" class="signature-pad">
@@ -104,34 +116,35 @@
             <canvas></canvas>
           </div>
           <div class="signature-pad--footer">
-            <div class="description">
+            <div class="description" style="font-weight: bold;">
               Please draw your signature above and click SIGN
             </div>
 
-            <div class="signature-pad--actions">
-              <div>
-                <button type="button" class="button clear" data-action="clear">
+            <div class="mx-6 my-6" style="margin-top: 60px;">
+              <div class="mt-6 flex items-center justify-between gap-x-6">
+                <!-- Clear Button -->
+                <button
+                  type="button"
+                  class="w-full rounded-md bg-red-600 py-2 text-sm font-semibold text-white shadow-sm hover:bg-red-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-red-600"
+                  data-action="clear"
+                >
                   Clear
+                </button>
+                <!-- SIGN Button on the right -->
+                <button
+                  type="button"
+                  data-action="submit"
+                  id="postbackButton"
+                  class="w-full rounded-md bg-green-600 py-2 text-sm font-semibold text-white shadow-sm hover:bg-green-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-green-600"
+                >
+                  SIGN
                 </button>
               </div>
             </div>
           </div>
         </div>
       </div>
-      <div class="mx-6 my-6">
-        <div class="mt-6 flex items-center justify-center gap-x-6">
-          <button
-            type="button"
-            data-action="submit"
-            id="postbackButton"
-            class="w-full rounded-md bg-green-600 py-2 text-sm font-semibold text-white shadow-sm hover:bg-green-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-green-600"
-          >
-            SIGN
-          </button>
-        </div>
-      </div>
     </div>
-
     <script>
       /*!
        * Signature Pad v2.3.2
