@@ -7,24 +7,95 @@
       rel="stylesheet"
       href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css"
     />
+    <style>
+      #logo {
+        height: 10vh;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+      }
+      #video {
+        object-fit: cover;
+        width: 100%;
+        height: 60vh; /* Increase video height */
+        pointer-events: none;
+      }
+      #controls {
+        height: 15vh; /* Adjust control section height */
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        gap: 10px;
+      }
+      button {
+        padding: 15px;
+        font-size: 18px;
+        width: 40%;
+        border-radius: 10px;
+        border: none;
+        cursor: pointer;
+        height: 60px;
+        font-weight: bold; /* Make the text bold */
+        font-family: "Source Sans Pro", "Trebuchet MS", Helvetica, sans-serif; /* Apply font family */
+      }
+      #switchCamera {
+        background-color: #007bff;
+        color: white;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+      }
+      #switchCamera:hover {
+        background-color: #0056b3;
+      }
+      #capture {
+        background-color: rgb(4, 122, 71); /* New color */
+        color: white;
+      }
+      #capture:hover {
+        background-color: #034d3c;
+      }
+      #capture.no-hover:hover {
+        background-color: rgb(4, 122, 71); /* Remove hover effect */
+      }
+      #retake {
+        background-color: #dc3545;
+        color: white;
+      }
+      #retake:hover {
+        background-color: #a71d2a;
+      }
+      #capturedImage {
+        width: 100%;
+        height: 60vh;
+        object-fit: cover;
+        display: none;
+      }
+      .freeze-screen {
+        pointer-events: none;
+        opacity: 0.5;
+      }
+    </style>
   </head>
 
   <body>
-    <div class="flex h-screen flex-col">
-      <div id="camera" class="flex-1 items-start justify-center flex">
-        <video id="video" autoplay></video>
+    <div id="logo">
+      <img src="https://emeapresalesstorage.blob.core.windows.net/xapp-images/logo_cognigy (597x79)@1xpng.png" style="width: 200px; height: auto;" alt="Logo" />
+    </div>
+
+    <div class="flex flex-col h-screen">
+      <div id="camera" class="flex items-start justify-center">
+        <video id="video" muted playsinline></video>
         <canvas style="display: none" id="canvas"></canvas>
+        <img id="capturedImage" alt="Captured Image" />
       </div>
-      <div class="mx-6 my-6">
-        <div class="mt-6 flex items-center justify-center gap-x-6">
-          <button
-            type="button"
-            id="capture"
-            class="w-full rounded-md bg-green-600 py-2 text-sm font-semibold text-white shadow-sm hover:bg-green-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-green-600"
-          >
-            TAKE PHOTO
-          </button>
-        </div>
+      <div id="controls" class="flex items-center justify-center">
+        <button id="switchCamera">
+          SWITCH CAMERA
+        </button>
+        <button id="capture">
+          TAKE PHOTO
+        </button>
       </div>
     </div>
 
@@ -33,32 +104,98 @@
         const video = document.getElementById("video");
         const canvas = document.getElementById("canvas");
         const captureButton = document.getElementById("capture");
+        const switchCameraButton = document.getElementById("switchCamera");
+        const capturedImage = document.getElementById("capturedImage");
+        const body = document.querySelector("body");
+        let currentStream;
+        let currentFacingMode = 'environment'; // Start with back camera
 
-        // Access the device camera and stream to video element
-        navigator.mediaDevices
-          .getUserMedia({ video: true })
-          .then(function (stream) {
-            video.srcObject = stream;
-          })
-          .catch(function (error) {
-            console.error("Error accessing the camera.", error);
-          });
+        function startCamera(facingMode) {
+          if (currentStream) {
+            currentStream.getTracks().forEach(track => track.stop());
+          }
+
+          navigator.mediaDevices
+            .getUserMedia({
+              video: {
+                facingMode: facingMode,
+              },
+            })
+            .then(function (stream) {
+              currentStream = stream;
+              video.srcObject = stream;
+              video.play();
+            })
+            .catch(function (error) {
+              console.error("Error accessing the camera.", error);
+            });
+        }
+
+        // Start with back camera
+        startCamera(currentFacingMode);
+
+        // Switch between front and back camera
+        switchCameraButton.addEventListener("click", function () {
+          currentFacingMode =
+            currentFacingMode === "environment" ? "user" : "environment";
+          startCamera(currentFacingMode);
+        });
 
         // Capture photo from video stream
         captureButton.addEventListener("click", function () {
-          const context = canvas.getContext("2d");
-          // Ensure canvas has the same size as the video stream
-          canvas.width = video.videoWidth;
-          canvas.height = video.videoHeight;
-          // Draw the current frame from the video onto the canvas
-          context.drawImage(video, 0, 0, canvas.width, canvas.height);
-          // Convert the canvas content to a data URL representing a PNG
-          const data = canvas.toDataURL("image/png");
-          // Display the captured image (optional)
-          const image = new Image();
-          image.src = data;
+          if (captureButton.innerText === "TAKE PHOTO") {
+            const context = canvas.getContext("2d");
+            canvas.width = video.videoWidth;
+            canvas.height = video.videoHeight;
+            context.drawImage(video, 0, 0, canvas.width, canvas.height);
+            const data = canvas.toDataURL("image/png");
 
-          SDK.submit({ image: data });
+            // Display the captured image in the same container
+            capturedImage.src = data;
+            capturedImage.style.display = "block";
+            video.style.display = "none";
+            canvas.style.display = "none";
+            captureButton.innerText = "SEND";
+
+            // Hide the switch camera button
+            switchCameraButton.style.display = "none";
+
+            // Remove hover effect for SEND button
+            captureButton.classList.add("no-hover");
+
+            // Create and display the retake button
+            const retakeButton = document.createElement("button");
+            retakeButton.id = "retake";
+            retakeButton.innerText = "RETAKE";
+            retakeButton.style.backgroundColor = "#dc3545";
+            retakeButton.style.color = "white";
+            retakeButton.style.padding = "15px";
+            retakeButton.style.fontSize = "18px";
+            retakeButton.style.width = "40%";
+            retakeButton.style.borderRadius = "10px";
+            retakeButton.style.border = "none";
+            retakeButton.style.cursor = "pointer";
+            retakeButton.style.height = "60px";
+            retakeButton.style.fontWeight = "bold";
+            retakeButton.style.fontFamily = "Source Sans Pro, Trebuchet MS, Helvetica, sans-serif";
+
+            retakeButton.addEventListener("click", function () {
+              video.style.display = "block";
+              capturedImage.style.display = "none";
+              captureButton.innerText = "TAKE PHOTO";
+              switchCameraButton.style.display = "block";
+              captureButton.classList.remove("no-hover");
+              document.getElementById("controls").removeChild(retakeButton);
+              body.classList.remove("freeze-screen");
+            });
+
+            document.getElementById("controls").appendChild(retakeButton);
+          } else if (captureButton.innerText === "SEND") {
+            const data = canvas.toDataURL("image/png");
+            console.log("Captured image:", data);
+            SDK.submit({ image: data });
+            body.classList.add("freeze-screen"); // Freeze the screen
+          }
         });
       });
     </script>
