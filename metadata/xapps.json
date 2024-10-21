@@ -19,7 +19,7 @@
       "longDescription": "This xApp displays an example seat map of an airplane.",
       "infoUrl": "https://github.com/Cognigy/xApps/tree/main/xapps/flight-seat-picker",
       "tags": ["aviation", "travel", "airplane", "booking", "seat"],
-      "pictureUrl": "https://raw.githubusercontent.com/Cognigy/xApps/main/xapps/flight-seat-picker/docs/example.png"
+      "pictureUrl": "https://raw.githubusercontent.com/Cognigy/xApps/main/xapps/flight-seat-picker/docs/example.jpeg"
     },
     {
       "name": "geo-location",
