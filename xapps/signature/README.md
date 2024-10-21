@@ -2,7 +2,7 @@
 
 This xApp lets the user sign something:
 
-<img src="./docs/example.png" width="200">
+<img src="./docs/example.jpeg" width="200">
 
 The user can provide a signature on their device, such as a smartphone, and submit it to be sent to Cognigy.AI. In this case, the following data is sent to the `{{input.data}}` object:
 
