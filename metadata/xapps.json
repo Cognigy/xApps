@@ -70,6 +70,16 @@
       "infoUrl": "https://github.com/Cognigy/xApps/tree/main/xapps/stripe-payment",
       "tags": ["stripe", "payment"],
       "pictureUrl": "https://raw.githubusercontent.com/Cognigy/xApps/main/xapps/stripe-payment/docs/example.png"
+    },
+    {
+      "name": "identification",
+      "label": "Identification",
+      "version": "1.0.0",
+      "description": "This xApp is used to identifiy the user",
+      "longDescription": "User is required to input a identification code in order to identify",
+      "infoUrl": "https://github.com/Cognigy/xApps/tree/main/xapps/identification",
+      "tags": ["id", "identification"],
+      "pictureUrl": "https://raw.githubusercontent.com/Cognigy/xApps/main/xapps/identification/docs/example_1.jpeg"
     }
   ]
 }

@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <script src="/sdk/app-page-sdk.js"></script>
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <link
+      rel="stylesheet"
+      href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css"
+    />
+    <style>
+      body {
+  background-color: #FFFFFF; /* Change the background color of the xApp */
+
+}
+      #logo {
+        height: 10vh;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+      }
+      #controls {
+        height: 15vh; 
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        gap: 10px;
+      }
+      button {
+        padding: 15px;
+        font-size: 18px;
+        width: 40%;
+        border-radius: 10px;
+        border: none;
+        cursor: pointer;
+        height: 60px;
+        font-weight: bold;
+        font-family: "Source Sans Pro", "Trebuchet MS", Helvetica, sans-serif;
+      }
+      #capture {
+        background-color: rgb(4, 122, 71);
+        color: white;
+        margin-top: 40px;
+      }
+      #capture:hover {
+        background-color: #034d3c;
+      }
+      #capture.no-hover:hover {
+        background-color: rgb(4, 122, 71);
+      }
+      .input-container {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        gap: 15px;
+        margin-top: 20px;
+      }
+      .para{
+        font-size: 18px;
+        font-weight: bold;
+        font-family: "Source Sans Pro", "Trebuchet MS", Helvetica, sans-serif;
+        color: black;
+        align-items: center;
+        margin-top: 20px;
+      }
+      input[type="text"] {
+        padding: 10px;
+        font-size: 16px;
+        border-radius: 5px;
+        border: 1px solid #ccc;
+        width: 75%;
+      }
+    </style>
+  </head>
+
+  <body>
+    <div id="logo">
+      <!-- Change the logo of the xApp -->
+      <img src="https://emeapresalesstorage.blob.core.windows.net/xapp-images/logo_cognigy (597x79)@1xpng.png" style="width: 200px; height: auto;" alt="Logo" />
+    </div>
+
+    <div class="flex flex-col h-screen">
+      <!-- Change the text -->
+    <p class="para" style="text-align: center;">Please enter your Identification Number:</p>
+      <div class="input-container">
+        <!-- Change the placeholder text -->
+        <input type="text" id="id" name="id" placeholder="e.g., 13567789899" />
+        <button id="capture" onclick="submitID()">SUBMIT</button>
+      </div>
+    </div>
+
+    <script>
+      function submitID() {
+        const id = document.getElementById("id").value;
+        const idPattern = /^\d{11}$/; // Change the regex rule for validation
+
+        if (!idPattern.test(id)) {
+          alert("Please enter a valid 11-digit Identification Number(e.g., 13567789899)."); // Change the validation message
+          return;
+        }
+        
+        console.log("Submitted ID:", id);
+        SDK.submit({ id: id });
+      }
+    </script>
+  </body>
+</html>
