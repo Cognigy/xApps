@@ -12,6 +12,16 @@
       "pictureUrl": ""
     },
     {
+      "name": "take-photo",
+      "label": "Take Photo",
+      "version": "4.0.0",
+      "description": "This xApp lets the user take a photo on their phone or browser",
+      "longDescription": "This xApp lets the user take a photo on their phone or browser.",
+      "infoUrl": "https://github.com/Cognigy/xApps/tree/main/xapps/take-photo",
+      "tags": ["photo", "camera"]
+      "pictureUrl": "https://raw.githubusercontent.com/Cognigy/xApps/main/xapps/take-photo/docs/example_1.jpeg"
+    },
+    {
       "name": "flight-seat-picker",
       "label": "Flight Seat Picker",
       "version": "4.0.0",
@@ -29,7 +39,7 @@
       "longDescription": "This xApp shows a button that submits the geolocation of the user's device on click.",
       "infoUrl": "https://github.com/Cognigy/xApps/tree/main/xapps/geo-location",
       "tags": ["location", "geo"],
-      "pictureUrl": "https://raw.githubusercontent.com/Cognigy/xApps/main/xapps/geo-location/docs/example.png"
+      "pictureUrl": ""
     },
     {
       "name": "license-plate-form",
@@ -49,7 +59,7 @@
       "longDescription": "This xApp lets the user sign something.",
       "infoUrl": "https://github.com/Cognigy/xApps/tree/main/xapps/signature",
       "tags": ["signature"],
-      "pictureUrl": "https://raw.githubusercontent.com/Cognigy/xApps/main/xapps/signature/docs/example.png"
+      "pictureUrl": "https://raw.githubusercontent.com/Cognigy/xApps/main/xapps/signature/docs/example.jpeg"
     },
     {
       "name": "google-maps-location",
